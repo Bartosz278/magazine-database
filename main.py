@@ -2,12 +2,12 @@ from tkinter import *
 from tkinter.ttk import *
 import tkinter as tk
 from tkinter import ttk
-from win32api import GetSystemMetrics
+# from win32api import GetSystemMetrics
 import datetime
 import ttkbootstrap
 
-screenHeight = int(GetSystemMetrics(0) - GetSystemMetrics(0) * 0.10)
-screenWidth = int(GetSystemMetrics(1) - GetSystemMetrics(1) * 0.4)
+# screenHeight = int(GetSystemMetrics(0) - GetSystemMetrics(0) * 0.10)
+# screenWidth = int(GetSystemMetrics(1) - GetSystemMetrics(1) * 0.4)
 
 def refresh():
     x = open("baza.txt", "r")
@@ -89,8 +89,8 @@ def addWindow():
     description = ttk.Entry(frame)
     description.grid(row=1, column=6)
 
-    addRecordButotn = tk.Button(frame, text="create", command=addData, font='Calibri 14')
-    addRecordButotn.grid(row=1, column=7, padx=20,ipady=4)
+    addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14')
+    addRecordButton.grid(row=1, column=7, padx=20,ipady=4)
 
 # MAIN WINDOW SIZE ETC.
 root = Tk(className='Data')
@@ -105,7 +105,7 @@ content.pack()
 addButton = tk.Button(content,text='Add item', command=addWindow, font='Calibri 14')
 addButton.grid(row=0, column=0,ipady=4)
 
-Label(content, text='Add item').grid(row=0, column=1)
+Label(content, text='Add item').grid(row=0, column=2)
 searchButton = tk.Button(content, text='pokaz-dataShow def ',command=refresh, font='Calibri 14')
 searchButton.grid(row=0, column=4, padx=30, pady=30,ipady=4)
 searchbar = Entry(content, width=50)
@@ -123,7 +123,7 @@ search.grid(row=0, column=3,ipady=4)
 
 columns = ('CheckBox','ID', 'type', 'CECQ code', 'qr code', 'location', 'placement', 'description', 'edition date')
 listBox = Treeview(content, columns=columns, show='headings')
-listBox.grid(row=1, column=1, columnspan=9)
+listBox.grid(row=1, column=0, columnspan=9)
 
 rowHeight = ttk.Style()
 rowHeight.configure('Treeview', rowheight=30)
