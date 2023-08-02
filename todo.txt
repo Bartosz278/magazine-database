@@ -11,23 +11,17 @@ to do:
 
 FONT optionMenu
 okno do dodawnia mozna wlaczyc wiecej razy -- zmienic
-
-tworzenie bazy danych w pliku txt, rozdzielanie kolumn za pomocą wybranego znaku który trzeba wyłączyć z użytkowania
-utworzenie searchbara w którym bedziemy wpisywac tekst i wybierac z jakiej kolumny szukamy danego tekstu
-scrollbar którym bedzie mozna przejrzeć wszystkie rekordy w bazie
 automatyczny backup po włączeniu aplikacji
-jakikolwiek ui
-jezeli searchbar bedzie pusty zeby sie nie jebało
-okienko do dodawania przedmiotów jest popupem
-jak bedzie puste to zeby tworzyło pusta komorke a nie pomijało
+przycisk usuwania ----> po usunieciu reload ID
+pole edycji wiersza (double click / przycisk)
 
+maybe to do:
 
-maybe to do
 mozliwosc swapowania kolumn usuwania ich i dodawania
 jakis ładny ui
-dynamiczne wyszukiwanie
-checkbox do usuwania 
-
+checkbox do usuwania
+szerokość scrollbara
+columna type --> lista rozwijana (propozycje typu) --> opcja dodawania typu dla usera
 
 
 button searchbar(tekst, typ){

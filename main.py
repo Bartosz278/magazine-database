@@ -1,3 +1,4 @@
+import time
 from tkinter import *
 from tkinter.ttk import *
 import tkinter as tk
@@ -5,6 +6,8 @@ from tkinter import ttk
 # from win32api import GetSystemMetrics
 import datetime
 import ttkbootstrap
+import ttkwidgets
+
 
 # screenHeight = int(GetSystemMetrics(0) - GetSystemMetrics(0) * 0.10)
 # screenWidth = int(GetSystemMetrics(1) - GetSystemMetrics(1) * 0.4)
@@ -15,19 +18,41 @@ def refresh():
             if line.strip():
                 writer.write(line)
         writer.truncate()
-    x = open('baza.txt','r')
+    x = open('baza.txt', 'r')
     for row in listBox.get_children():
         listBox.delete(row)
     for line in x:
         table = []
         table = line.split("|")
-        table.insert(9,'O')
-        listBox.insert('', 'end', values=table)
+        table.insert(9, 'O')
+        tablica = ["10"]
+        listBox.insert('', 'end', value=table)
     x.close()
 
-def dataGain():
+
+def dataGain(item):
     x = open("baza.txt", "r")
     item = searchbar.get()
+    item_type = columns.index(searchtype.get())
+    for row in listBox.get_children():
+        listBox.delete(row)
+    for line in x:
+        line = line.split("|")
+        if item in line[item_type]:
+            listBox.insert('', "end", values=line)
+    if item.strip():
+        pass
+    else:
+        refresh()
+    for line in x:
+        line = line.split("|")
+        for elem in line:
+            index = elem.find(item)
+            if index == -1:
+                continue
+            else:
+                listBox.insert('', 'end', values=line)
+    x.close()
 
 
 def addWindow():
@@ -42,9 +67,8 @@ def addWindow():
         new_item.append(qr.get())
         new_item.append(location.get())
         new_item.append(placement.get())
-        new_item.append(description.get())
         new_item.append(str(datetime.date.today()))
-        print(new_item)
+        new_item.append(description.get())
         i = 0
         for i in range(1, 8):
             empty_line += new_item[i]
@@ -53,7 +77,6 @@ def addWindow():
             for item in new_item:
                 xa.write(str(item) + "|")
                 i += 1
-
 
         xa.close()
         refresh()
@@ -94,47 +117,69 @@ def addWindow():
     description.grid(row=1, column=7)
 
     addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14')
-    addRecordButton.grid(row=1, column=8, padx=20,ipady=4)
+    addRecordButton.grid(row=1, column=8, padx=20, ipady=4)
+
 
 # MAIN WINDOW SIZE ETC.
 root = Tk(className='Data')
 # content.state("zoomed")
 # content.geometry(str(screenHeight) + 'x' + str(screenWidth))
 root.config(bg='#EFF9FF')
+nav = Frame(root)
+nav.pack(side=TOP)
+content = Frame(root)
+content.pack(fill='y', expand=True)
 
 content = Frame(root)
 content.pack()
 # content.grid(row=0,column=0)
 
-addButton = tk.Button(content,text='Add item', command=addWindow, font='Calibri 14')
-addButton.grid(row=0, column=0,ipady=4)
+addButton = tk.Button(nav, text='Add item', command=addWindow, font='Calibri 14')
+addButton.grid(row=0, column=0, ipady=4, padx=30)
 
-Label(content, text='Add item').grid(row=0, column=2)
-searchButton = tk.Button(content, text='pokaz-dataShow def ',command=refresh, font='Calibri 14')
-searchButton.grid(row=0, column=4, padx=30, pady=30,ipady=4)
-searchbar = Entry(content, width=50)
-searchbar.grid(row=0, column=1,ipady=3)
+Label(nav, text='Add item').grid(row=0, column=2)
+searchbar = Entry(nav, width=50)
+
+searchbar.bind("<KeyRelease>", dataGain)
+searchbar.grid(row=0, column=1, ipady=3, padx=30)
 
 searchtype = StringVar(content)
-searchtype.set("name")
-type = OptionMenu(content, searchtype, "name", "name", "type", "cecq", "qr", "location", "position", "edition date")
-type.grid(row=0, column=2,ipady=8)
+type = OptionMenu(nav, searchtype, "ID", "ID", "type", "name", "CECQ code", "QR code", "location", "placement",
+                  "edition date", command=dataGain)
+type.grid(row=0, column=2, ipady=8, padx=30)
 
-search = tk.Button(content, text='Search - dataGain def', font='Calibri 14', command=dataGain)
-search.grid(row=0, column=3,ipady=4)
+# MAIN LIST
 
-                     #MAIN LIST
+columns = (
+'ID', 'type', 'name', 'CECQ code', 'QR code', 'location', 'placement', 'edition date', 'description', 'Check')
+listBox = Treeview(content, columns=columns, show='headings', height=50)
+listBox.pack(fill='y', expand=True, side=LEFT)
 
-columns = ('ID', 'type','name', 'CECQ code', 'qr code', 'location', 'placement', 'description', 'edition date', 'CheckBox')
-listBox = Treeview(content, columns=columns, show='headings')
-listBox.grid(row=1, column=0, columnspan=9)
+scroll = ttk.Scrollbar(content, orient="vertical", command=listBox.yview)
+scroll.pack(side=RIGHT, fill='y', expand=True)
+listBox.configure(yscrollcommand=scroll.set)
 
-rowHeight = ttk.Style()
-rowHeight.configure('Treeview', rowheight=30)
+style = ttk.Style()
+style.configure('Treeview', rowheight=30)
+style.configure("Treeview.Heading", background="#d2d2d2", foreground="black", font='Calibri 14')
 
 for col in columns:
     listBox.heading(col, text=col)
-    listBox.column(col,anchor=CENTER)
-refresh()
+    listBox.column(col, anchor=CENTER)
 
+
+def changeColumnWidth(size, *args):
+    for i in args:
+        listBox.column(i, width=size)
+
+counter = 0
+def prt(event):
+    print(counter)
+
+listBox.bind('<Double-Button-1>', prt)
+
+changeColumnWidth(60, 'ID', 'QR code', 'Check')
+changeColumnWidth(150, 'type', 'edition date', 'placement')
+
+refresh()
 content.mainloop()
