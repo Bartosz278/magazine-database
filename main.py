@@ -134,7 +134,25 @@ rowHeight.configure('Treeview', rowheight=30)
 
 for col in columns:
     listBox.heading(col, text=col)
+<<<<<<< Updated upstream
     listBox.column(col,anchor=CENTER)
+=======
+    listBox.column(col, anchor=CENTER)
+
+def changeColumnWidth(size, *args):
+    for i in args:
+        listBox.column(i, width=size)
+
+counter = 0
+def prt(event):
+    print(counter)
+
+listBox.bind('<Double-Button-1>', prt)
+
+changeColumnWidth(60, 'ID', 'QR code', 'Check')
+changeColumnWidth(150, 'type', 'edition date', 'placement')
+
+>>>>>>> Stashed changes
 refresh()
 
 content.mainloop()
