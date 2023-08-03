@@ -1,19 +1,12 @@
-id|nazwa|typ|kod ceceq|kod qr|lokalizacja|miejsce w magazynie|opis|data edycji
-1>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-2>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-1>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-1>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-1>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-
-
-
 to do:
 
-FONT optionMenu
+!!! edit window -----> pokazac wartosci wiersza w Entry + logika(zmiana, zapis w pliku) wyjątel dla headingsow !!!
 okno do dodawnia mozna wlaczyc wiecej razy -- zmienic
+
+brak możliwosci wyłączenia okna głownego bez wyłączenia mniejszych
 automatyczny backup po włączeniu aplikacji
 przycisk usuwania ----> po usunieciu reload ID
-pole edycji wiersza (double click / przycisk)
+FONT optionMenu
 
 maybe to do:
 
@@ -22,7 +15,7 @@ jakis ładny ui
 checkbox do usuwania
 szerokość scrollbara
 columna type --> lista rozwijana (propozycje typu) --> opcja dodawania typu dla usera
-
+kosz
 
 button searchbar(tekst, typ){
 	while true:
