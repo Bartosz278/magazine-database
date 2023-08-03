@@ -10,3 +10,4 @@
 10|can|wtyczka can|@1234213|312313|PUL80|A/2/4/|fajna wtyka|27.07.2023
 11|can|wtyczka usb |@213441|31231|PUL80|B/1/4|kox|2023-0
 12|pc|fajny pct|@3894192|192319|PUL80|B/1/4|gtx 3060|2023-08-02|
+13|assa|do jest ostatni rekord|das||||2023-08-03||
