@@ -1,5 +1,8 @@
 # magazine-database
 
+
+To open edit menu double click on row
+
 ![image](https://github.com/Bartosz278/magazine-database/assets/80819432/77759438-bf27-4d58-b0be-aca260c279f2)
 
 ADD
