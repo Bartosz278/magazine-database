@@ -6,8 +6,8 @@ from tkinter import ttk
 # from win32api import GetSystemMetrics
 import datetime
 import ttkbootstrap
-import ttkwidgets
 import keyboard
+from ttkbootstrap.constants import *
 
 
 # screenHeight = int(GetSystemMetrics(0) - GetSystemMetrics(0) * 0.10)
@@ -15,31 +15,65 @@ import keyboard
 def changeColumnWidth(size, *args):
     for i in args:
         listBox.column(i, width=size)
+
+
 def editRowWindow(event):
     def resize():
         editWindow.geometry("550x350")
-        typeEntry = ttk.Label(editFrame,text="chuj", font="Calibri 14", width=50).grid(row=0,column=1)
+
+
     editWindow = Tk(className='Edit window')
+    editWindow.geometry("350x350")
     editFrame = ttk.Frame(editWindow, padding=50)
     editFrame.pack()
-    editWindow.geometry("350x350")
+
+    editColumn1 = ttk.Frame(editFrame)
+    editColumn1.pack(side=LEFT)
+    editColumn2 = ttk.Frame(editFrame)
+    editColumn2.pack(side=LEFT)
 
     selected = listBox.focus()
     x = (listBox.item(selected, 'values'))
     x1 = StringVar(value=x[1])
-    print(x1)
 
-    typeLabel = ttk.Label(editFrame, text='type:               ', font='Calibri 14',width=50).grid(row=0, column=0)
-    typetext = ttk.Label(editFrame, textvariable = x1, font='Calibri 14', width=50).grid(row=0,column=1)
-    nameLabel = ttk.Label(editFrame, text='Name:            '+x[2], font='Calibri 14',width=50).grid(row=1, column=0)
-    cecqLabel = ttk.Label(editFrame, text='Cecq:              '+x[3], font='Calibri 14',width=50).grid(row=2, column=0)
-    qrLabel = ttk.Label(editFrame, text='Qr code:         '+x[4], font='Calibri 14',width=50).grid(row=3, column=0)
-    locationLabel = ttk.Label(editFrame, text='location:         '+x[5], font='Calibri 14',width=50).grid(row=4, column=0)
-    placementLabel = ttk.Label(editFrame, text='placement:     '+x[6], font='Calibri 14',width=50).grid(row=5, column=0)
-    descriptionLabel = ttk.Label(editFrame, text='description:   '+x[7], font='Calibri 14',width=50).grid(row=6, column=0)
+    typeLabel = Label(editColumn1, text='Type:', font='Calibri 14',anchor='w',width=10).pack()
+    typeLabelValue = ttk.Entry(editColumn2, font='Calibri 14',width=20)
+    typeLabelValue.insert(END,x[1])
+    typeLabelValue.pack()
 
-    removeItemButton = tk.Button(editWindow, text="Remove", font='Calibri 14').pack(side=LEFT,padx=20,pady=5,ipadx=10)
-    EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14',command=resize).pack(side=LEFT,pady=5,ipadx=10)
+
+    nameLabel = ttk.Label(editColumn1, text='Name:', font='Calibri 14',anchor='w',width=10).pack()
+    nameLabelValue = ttk.Entry(editColumn2,text=x[2],font='Calibri 14',width=20)
+    nameLabelValue.insert(END, x[2])
+    nameLabelValue.pack()
+
+    cecqLabel = ttk.Label(editColumn1, text='Cecq:', font='Calibri 14',anchor='w',width=10).pack()
+    cecqLabelValue = ttk.Entry(editColumn2, text=x[3], font='Calibri 14',width=20)
+    cecqLabelValue.insert(END, x[3])
+    cecqLabelValue.pack()
+
+    qrLabel = ttk.Label(editColumn1, text='Qr code:', font='Calibri 14',anchor='w',width=10).pack()
+    qrLabelValue = ttk.Entry(editColumn2, text=x[4], font='Calibri 14',width=20)
+    qrLabelValue.insert(END, x[4])
+    qrLabelValue.pack()
+
+    locationLabel = ttk.Label(editColumn1, text='location:', font='Calibri 14',anchor='w',width=10).pack()
+    locationLabelValue = ttk.Entry(editColumn2, text=x[5], font='Calibri 14',width=20)
+    locationLabelValue.insert(END, x[5])
+    locationLabelValue.pack()
+
+    placementLabel = ttk.Label(editColumn1, text='placement:', font='Calibri 14',anchor='w',width=10).pack()
+    placementLabelValue = ttk.Entry(editColumn2, text=x[6], font='Calibri 14',width=20)
+    placementLabelValue.insert(END, x[6])
+    placementLabelValue.pack()
+
+    descriptionLabel = ttk.Label(editColumn1, text='description:', font='Calibri 14',anchor='w',width=10).pack()
+    descriptionLabelValue = ttk.Entry(editColumn2, text=x[7], font='Calibri 14',width=20)
+    descriptionLabelValue.insert(END, x[7])
+    descriptionLabelValue.pack()
+
+    removeItemButton = tk.Button(editWindow, text="Remove", font='Calibri 14').pack(side=LEFT, padx=20, pady=5,ipadx=10)
+    EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14', command=resize).pack(side=LEFT, pady=5, ipadx=10)
 
 def refresh():
     with open('baza.txt') as reader, open('baza.txt', 'r+') as writer:
@@ -145,69 +179,54 @@ def addWindow():
     description = ttk.Entry(frame)
     description.grid(row=1, column=7)
 
-    addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20, ipady=4)
+    addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,
+                                                                                               ipady=4)
 
 
 # MAIN WINDOW SIZE ETC.
 
-
 root = Tk(className='Data')
-# content.state("zoomed")
-# content.geometry(str(screenHeight) + 'x' + str(screenWidth))
-root.config(bg='#EFF9FF')
-nav = Frame(root)
-nav.pack(side=TOP)
+root.config(bg='#F8F9FA')
+nav = ttk.Frame(root, bootstyle="light")
+nav.pack()
 content = ttk.Frame(root)
 content.pack(fill='y', expand=True)
-
-
-fotter = Frame(root)
-
+fotter = ttk.Frame(root, bootstyle="light")
 fotter.pack()
-# x = Label(fotter,text="sadasdasd").grid(row=3,column=0,ipadx=300,ipady=300)
+x = Label(fotter, bootstyle="light").grid(row=0, column=0)
 
 addButton = tk.Button(nav, text='Add item', command=addWindow, font='Calibri 14')
 addButton.grid(row=0, column=0, ipady=4, padx=30)
 
-Label(nav, text='Add item').grid(row=0, column=2)
-searchbar = Entry(nav, width=50)
-
+searchbar = Entry(nav, width=50, font='Calibri 14')
 searchbar.bind("<KeyRelease>", dataGain)
-searchbar.grid(row=0, column=1, ipady=3, padx=30)
+searchbar.grid(row=0, column=1, ipady=5, padx=30)
 
 searchtype = StringVar(content)
 type = OptionMenu(nav, searchtype, "ID", "ID", "type", "name", "CECQ code", "QR code", "location", "placement",
-                  "edition date", command=dataGain)
-type.grid(row=0, column=2, ipady=8, padx=30)
+                  "edition date", command=dataGain).grid(row=0, column=2, ipady=8, padx=30)
 
 # MAIN LIST
 
 columns = (
-'ID', 'type', 'name', 'CECQ code', 'QR code', 'location', 'placement', 'edition date', 'description')
-listBox = Treeview(content, columns=columns, show='headings', height=50)
+    'ID', 'type', 'name', 'CECQ code', 'QR code', 'location', 'placement', 'edition date', 'description')
+listBox = Treeview(content, columns=columns, show='headings', height=40)
 listBox.pack(fill='y', expand=True, side=LEFT)
-
-
 scroll = ttk.Scrollbar(content, orient="vertical", command=listBox.yview)
 scroll.pack(side=RIGHT, fill='y', expand=True)
 listBox.configure(yscrollcommand=scroll.set)
-listBox.bind('<Double-Button-1>',editRowWindow)
-listBox.bind("<Button-3>", lambda e: print('You right clicked'))
-
-style = ttk.Style()
-style.configure('Treeview', rowheight=30)
-style.configure("Treeview.Heading", background="#d2d2d2", foreground="black", font='Calibri 14')
-style.configure('My.TFrame',background='red')
+listBox.bind('<Double-Button-1>', editRowWindow)
 
 for col in columns:
-    listBox.heading(col, text=col)
-    listBox.column(col,anchor=CENTER)
+    listBox.heading(col, text=col,anchor=CENTER)
     listBox.column(col, anchor=CENTER)
 
 changeColumnWidth(40, 'ID')
 changeColumnWidth(150, 'type', 'edition date', 'placement')
 
-
+style = ttk.Style()
+style.configure('Treeview', rowheight=30)
+style.configure("Treeview.Heading", background="#d2d2d2", foreground="black", font='Calibri 14')
 
 refresh()
 root.mainloop()
