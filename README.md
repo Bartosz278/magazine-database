@@ -8,3 +8,9 @@ ADD
 
 EDIT
 ![image](https://github.com/Bartosz278/magazine-database/assets/80819432/858436e8-9435-438b-a8c8-5c58c8c17675)
+
+SEARCHING
+![image](https://github.com/Bartosz278/magazine-database/assets/80819432/649c2375-7de4-4669-b70c-99b505075d92)
+
+WORK FOR 20 K RECORDS 
+![image](https://github.com/Bartosz278/magazine-database/assets/80819432/fc106543-7747-424c-8052-f41018e61549)
