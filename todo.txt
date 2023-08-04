@@ -1,44 +1,25 @@
-id|nazwa|typ|kod ceceq|kod qr|lokalizacja|miejsce w magazynie|opis|data edycji
-1>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-2>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-1>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-1>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-1>wtyczka>can>chuwdu>1123123>PUŁ80>A/2/1>jebac>26.07.2023
-
-
-
 to do:
 
-FONT optionMenu
+!!! edit window -----> logika(zmiana, zapis w pliku) wyjątek dla headingsow !!!
 okno do dodawnia mozna wlaczyc wiecej razy -- zmienic
-
-tworzenie bazy danych w pliku txt, rozdzielanie kolumn za pomocą wybranego znaku który trzeba wyłączyć z użytkowania
-utworzenie searchbara w którym bedziemy wpisywac tekst i wybierac z jakiej kolumny szukamy danego tekstu
-scrollbar którym bedzie mozna przejrzeć wszystkie rekordy w bazie
+brak możliwosci wyłączenia okna głownego bez wyłączenia mniejszych
+eit window ----> okno "Description" rozszerzyc zeby pokazac caly opis
+zmienic kolor "remove item" na czerwony
+przycisk usuwania ----> po usunieciu reload ID
 automatyczny backup po włączeniu aplikacji
-jakikolwiek ui
-jezeli searchbar bedzie pusty zeby sie nie jebało
-okienko do dodawania przedmiotów jest popupem
-jak bedzie puste to zeby tworzyło pusta komorke a nie pomijało
+FONT optionMenu
 
+maybe to do:
 
-maybe to do
 mozliwosc swapowania kolumn usuwania ich i dodawania
 jakis ładny ui
-dynamiczne wyszukiwanie
-checkbox do usuwania 
+checkbox do usuwania
+szerokość scrollbara
+columna type --> lista rozwijana (propozycje typu) --> opcja dodawania typu dla usera
+kosz
 
 
 
-button searchbar(tekst, typ){
-	while true:
-		if tablica[2] == typ
-button powrót()[
-	for x in range(0;999);
-		wiersz(x) = tablica
-		print tablica
- tablica = tab[]
-for x in range(0;999);	
-	wiersz(x) = 
-	
+ >>>>>>>>>   ZAGADKA <<<<<<<<<<<<<
 
+ dlaczego piewszy wiersz entry w Edit Window sie rozszerza ?? (!)
