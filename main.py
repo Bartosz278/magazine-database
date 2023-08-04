@@ -6,8 +6,13 @@ from tkinter import ttk
 # from win32api import GetSystemMetrics
 import datetime
 import ttkbootstrap
+<<<<<<< HEAD
 import keyboard
 from ttkbootstrap.constants import *
+=======
+import ttkwidgets
+import keyboard
+>>>>>>> a6016937d4adacd29ccc8090b7f37472cdf959af
 
 
 # screenHeight = int(GetSystemMetrics(0) - GetSystemMetrics(0) * 0.10)
@@ -15,6 +20,7 @@ from ttkbootstrap.constants import *
 def changeColumnWidth(size, *args):
     for i in args:
         listBox.column(i, width=size)
+<<<<<<< HEAD
 
 
 def editRowWindow(event):
@@ -31,10 +37,21 @@ def editRowWindow(event):
     editColumn1.pack(side=LEFT)
     editColumn2 = ttk.Frame(editFrame)
     editColumn2.pack(side=LEFT)
+=======
+def editRowWindow(event):
+    def resize():
+        editWindow.geometry("550x350")
+        typeEntry = ttk.Label(editFrame,text="chuj", font="Calibri 14", width=50).grid(row=0,column=1)
+    editWindow = Tk(className='Edit window')
+    editFrame = ttk.Frame(editWindow, padding=50)
+    editFrame.pack()
+    editWindow.geometry("350x350")
+>>>>>>> a6016937d4adacd29ccc8090b7f37472cdf959af
 
     selected = listBox.focus()
     x = (listBox.item(selected, 'values'))
     x1 = StringVar(value=x[1])
+<<<<<<< HEAD
 
     typeLabel = Label(editColumn1, text='Type:', font='Calibri 14',anchor='w',width=10).pack()
     typeLabelValue = ttk.Entry(editColumn2, font='Calibri 14',width=20)
@@ -74,6 +91,21 @@ def editRowWindow(event):
 
     removeItemButton = tk.Button(editWindow, text="Remove", font='Calibri 14').pack(side=LEFT, padx=20, pady=5,ipadx=10)
     EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14', command=resize).pack(side=LEFT, pady=5, ipadx=10)
+=======
+    print(x1)
+
+    typeLabel = ttk.Label(editFrame, text='type:               ', font='Calibri 14',width=50).grid(row=0, column=0)
+    typetext = ttk.Label(editFrame, textvariable = x1, font='Calibri 14', width=50).grid(row=0,column=1)
+    nameLabel = ttk.Label(editFrame, text='Name:            '+x[2], font='Calibri 14',width=50).grid(row=1, column=0)
+    cecqLabel = ttk.Label(editFrame, text='Cecq:              '+x[3], font='Calibri 14',width=50).grid(row=2, column=0)
+    qrLabel = ttk.Label(editFrame, text='Qr code:         '+x[4], font='Calibri 14',width=50).grid(row=3, column=0)
+    locationLabel = ttk.Label(editFrame, text='location:         '+x[5], font='Calibri 14',width=50).grid(row=4, column=0)
+    placementLabel = ttk.Label(editFrame, text='placement:     '+x[6], font='Calibri 14',width=50).grid(row=5, column=0)
+    descriptionLabel = ttk.Label(editFrame, text='description:   '+x[7], font='Calibri 14',width=50).grid(row=6, column=0)
+
+    removeItemButton = tk.Button(editWindow, text="Remove", font='Calibri 14').pack(side=LEFT,padx=20,pady=5,ipadx=10)
+    EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14',command=resize).pack(side=LEFT,pady=5,ipadx=10)
+>>>>>>> a6016937d4adacd29ccc8090b7f37472cdf959af
 
 def refresh():
     with open('baza.txt') as reader, open('baza.txt', 'r+') as writer:
@@ -179,12 +211,17 @@ def addWindow():
     description = ttk.Entry(frame)
     description.grid(row=1, column=7)
 
+<<<<<<< HEAD
     addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,
                                                                                                ipady=4)
+=======
+    addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20, ipady=4)
+>>>>>>> a6016937d4adacd29ccc8090b7f37472cdf959af
 
 
 # MAIN WINDOW SIZE ETC.
 
+<<<<<<< HEAD
 root = Tk(className='Data')
 root.config(bg='#F8F9FA')
 nav = ttk.Frame(root, bootstyle="light")
@@ -205,10 +242,42 @@ searchbar.grid(row=0, column=1, ipady=5, padx=30)
 searchtype = StringVar(content)
 type = OptionMenu(nav, searchtype, "ID", "ID", "type", "name", "CECQ code", "QR code", "location", "placement",
                   "edition date", command=dataGain).grid(row=0, column=2, ipady=8, padx=30)
+=======
+
+root = Tk(className='Data')
+# content.state("zoomed")
+# content.geometry(str(screenHeight) + 'x' + str(screenWidth))
+root.config(bg='#EFF9FF')
+nav = Frame(root)
+nav.pack(side=TOP)
+content = ttk.Frame(root)
+content.pack(fill='y', expand=True)
+
+
+fotter = Frame(root)
+
+fotter.pack()
+# x = Label(fotter,text="sadasdasd").grid(row=3,column=0,ipadx=300,ipady=300)
+
+addButton = tk.Button(nav, text='Add item', command=addWindow, font='Calibri 14')
+addButton.grid(row=0, column=0, ipady=4, padx=30)
+
+Label(nav, text='Add item').grid(row=0, column=2)
+searchbar = Entry(nav, width=50)
+
+searchbar.bind("<KeyRelease>", dataGain)
+searchbar.grid(row=0, column=1, ipady=3, padx=30)
+
+searchtype = StringVar(content)
+type = OptionMenu(nav, searchtype, "ID", "ID", "type", "name", "CECQ code", "QR code", "location", "placement",
+                  "edition date", command=dataGain)
+type.grid(row=0, column=2, ipady=8, padx=30)
+>>>>>>> a6016937d4adacd29ccc8090b7f37472cdf959af
 
 # MAIN LIST
 
 columns = (
+<<<<<<< HEAD
     'ID', 'type', 'name', 'CECQ code', 'QR code', 'location', 'placement', 'edition date', 'description')
 listBox = Treeview(content, columns=columns, show='headings', height=40)
 listBox.pack(fill='y', expand=True, side=LEFT)
@@ -219,14 +288,38 @@ listBox.bind('<Double-Button-1>', editRowWindow)
 
 for col in columns:
     listBox.heading(col, text=col,anchor=CENTER)
+=======
+'ID', 'type', 'name', 'CECQ code', 'QR code', 'location', 'placement', 'edition date', 'description')
+listBox = Treeview(content, columns=columns, show='headings', height=50)
+listBox.pack(fill='y', expand=True, side=LEFT)
+
+
+scroll = ttk.Scrollbar(content, orient="vertical", command=listBox.yview)
+scroll.pack(side=RIGHT, fill='y', expand=True)
+listBox.configure(yscrollcommand=scroll.set)
+listBox.bind('<Double-Button-1>',editRowWindow)
+listBox.bind("<Button-3>", lambda e: print('You right clicked'))
+
+style = ttk.Style()
+style.configure('Treeview', rowheight=30)
+style.configure("Treeview.Heading", background="#d2d2d2", foreground="black", font='Calibri 14')
+style.configure('My.TFrame',background='red')
+
+for col in columns:
+    listBox.heading(col, text=col)
+    listBox.column(col,anchor=CENTER)
+>>>>>>> a6016937d4adacd29ccc8090b7f37472cdf959af
     listBox.column(col, anchor=CENTER)
 
 changeColumnWidth(40, 'ID')
 changeColumnWidth(150, 'type', 'edition date', 'placement')
 
+<<<<<<< HEAD
 style = ttk.Style()
 style.configure('Treeview', rowheight=30)
 style.configure("Treeview.Heading", background="#d2d2d2", foreground="black", font='Calibri 14')
+=======
+>>>>>>> a6016937d4adacd29ccc8090b7f37472cdf959af
 
 refresh()
 root.mainloop()
