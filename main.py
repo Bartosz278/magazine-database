@@ -10,6 +10,8 @@ import keyboard
 from ttkbootstrap.constants import *
 import ttkwidgets
 import keyboard
+import shutil
+
 
 
 # screenHeight = int(GetSystemMetrics(0) - GetSystemMetrics(0) * 0.10)
@@ -261,7 +263,10 @@ def id_update():
     x.close()
     refresh()
 
+def backup():
 
+    dest = "baza.txt " + str(datetime.date.today()) + " " + str(datetime.datetime.now().hour) + "-" + str(datetime.datetime.now().minute)
+    shutil.copy("baza.txt", dest)
 
 # MAIN WINDOW SIZE ETC.
 
@@ -321,5 +326,6 @@ changeColumnWidth(40, 'ID')
 changeColumnWidth(150, 'type', 'edition date', 'placement')
 
 id_update()
+backup()
 refresh()
 root.mainloop()
