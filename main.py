@@ -8,6 +8,8 @@ import datetime
 import ttkbootstrap
 import keyboard
 from ttkbootstrap.constants import *
+import ttkwidgets
+import keyboard
 
 
 # screenHeight = int(GetSystemMetrics(0) - GetSystemMetrics(0) * 0.10)
@@ -16,16 +18,49 @@ def changeColumnWidth(size, *args):
     for i in args:
         listBox.column(i, width=size)
 
-
 def editRowWindow(event):
-    def resize():
-        editWindow.geometry("550x350")
-
+    def edit_item():
+        id_var = 1
+        edit_tab = []
+        x = open("baza.txt","r")
+        text = x.readlines()
+        x = open("baza.txt","w")
+        selected = listBox.focus()
+        edit_id = listBox.item(selected,'values')[0]
+        for row in text:
+            if str(id_var) == edit_id:
+                add_item = ""
+                k = 0
+                new_item = []
+                new_item.append(id_var)
+                new_item.append(typeLabelValue.get())
+                new_item.append(nameLabelValue.get())
+                new_item.append(cecqLabelValue.get())
+                new_item.append(qrLabelValue.get())
+                new_item.append(locationLabelValue.get())
+                new_item.append(placementLabelValue.get())
+                new_item.append(str(datetime.date.today()))
+                new_item.append(descriptionLabelValue.get())
+                for item in new_item:
+                    if k >= 8:
+                        add_item += str(item)
+                    else:
+                        add_item += str(item) + "|"
+                    k += 1
+                edit_tab.append(add_item)
+            else:
+                edit_tab.append(row)
+            id_var += 1
+        for element in edit_tab:
+            x.writelines(str(element))
+        x.close()
+        id_update()
+        refresh()
 
     editWindow = Tk(className='Edit window')
-    editWindow.geometry("350x350")
     editFrame = ttk.Frame(editWindow, padding=50)
     editFrame.pack()
+    editWindow.geometry("350x350")
 
     editColumn1 = ttk.Frame(editFrame)
     editColumn1.pack(side=LEFT)
@@ -34,13 +69,13 @@ def editRowWindow(event):
 
     selected = listBox.focus()
     x = (listBox.item(selected, 'values'))
+
     x1 = StringVar(value=x[1])
 
     typeLabel = Label(editColumn1, text='Type:', font='Calibri 14',anchor='w',width=10).pack()
     typeLabelValue = ttk.Entry(editColumn2, font='Calibri 14',width=20)
     typeLabelValue.insert(END,x[1])
     typeLabelValue.pack()
-
 
     nameLabel = ttk.Label(editColumn1, text='Name:', font='Calibri 14',anchor='w',width=10).pack()
     nameLabelValue = ttk.Entry(editColumn2,text=x[2],font='Calibri 14',width=20)
@@ -68,13 +103,12 @@ def editRowWindow(event):
     placementLabelValue.pack()
 
     descriptionLabel = ttk.Label(editColumn1, text='description:', font='Calibri 14',anchor='w',width=10).pack()
-    descriptionLabelValue = ttk.Entry(editColumn2, text=x[7], font='Calibri 14',width=20)
-    descriptionLabelValue.insert(END, x[7])
+    descriptionLabelValue = ttk.Entry(editColumn2, text=x[8], font='Calibri 14',width=20)
+    descriptionLabelValue.insert(END, x[8])
     descriptionLabelValue.pack()
 
-    removeItemButton = tk.Button(editWindow, text="Remove", font='Calibri 14').pack(side=LEFT, padx=20, pady=5,ipadx=10)
-    EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14', command=resize).pack(side=LEFT, pady=5, ipadx=10)
 
+    EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14',command=edit_item).pack(pady=5,ipadx=10)
 def refresh():
     with open('baza.txt') as reader, open('baza.txt', 'r+') as writer:
         for line in reader:
@@ -87,8 +121,6 @@ def refresh():
     for line in x:
         table = []
         table = line.split("|")
-        table.insert(9, 'O')
-        tablica = ["10"]
         listBox.insert('', 'end', value=table)
     x.close()
 
@@ -132,16 +164,21 @@ def addWindow():
         new_item.append(placement.get())
         new_item.append(str(datetime.date.today()))
         new_item.append(description.get())
-        i = 0
+        k = 0
         for i in range(1, 7):
             empty_line += new_item[i]
         if empty_line:
-            xa.write('\n')
+            xa.writelines('')
             for item in new_item:
-                xa.write(str(item) + "|")
-                i += 1
+                if k==8:
+                    xa.writelines(str(item))
+                else:
+                    xa.writelines(str(item) + "|")
+                k += 1
 
+        id_update()
         xa.close()
+        xr.close()
         refresh()
         win.destroy()
         addWindow()
@@ -179,8 +216,51 @@ def addWindow():
     description = ttk.Entry(frame)
     description.grid(row=1, column=7)
 
-    addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,
-                                                                                               ipady=4)
+    addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,ipady=4)
+
+def delete_item(event):
+    x = open("baza.txt", "w")
+    for i in listBox.selection():
+        listBox.delete(i)
+    for line in listBox.get_children():
+        item = []
+        k = 0
+        for value in listBox.item(line)["values"]:
+            if k == 8:
+                x.writelines(str(value))
+            else:
+                x.writelines(str(value) + "|")
+            k += 1
+    x.close()
+    id_update()
+    refresh()
+def id_update():
+    max_rows = 1
+    id = 1
+    x = open("baza.txt", "r")
+    text = x.readlines()
+    x = open("baza.txt", "w")
+    #check amount of lines
+    for rows in text:
+        max_rows += 1
+    #give correct id to lines
+    for lines in text:
+        item = ""
+        if max_rows>=id:
+            lines = lines.split('|')
+            lines[0] = id
+            id +=1
+        k = 0
+        for elem in lines:
+            if k == 8:
+                item += str(elem)
+            else:
+                item += str(elem) + "|"
+            k += 1
+        x.writelines(item)
+    x.close()
+    refresh()
+
 
 
 # MAIN WINDOW SIZE ETC.
@@ -203,30 +283,43 @@ searchbar.bind("<KeyRelease>", dataGain)
 searchbar.grid(row=0, column=1, ipady=5, padx=30)
 
 searchtype = StringVar(content)
+type = OptionMenu(nav, searchtype, "ID", "ID", "type", "name", "CECQ code", "QR code", "location", "placement","edition date", command=dataGain).grid(row=0, column=2, ipady=8, padx=30)
+
+
+searchtype = StringVar(content)
 type = OptionMenu(nav, searchtype, "ID", "ID", "type", "name", "CECQ code", "QR code", "location", "placement",
-                  "edition date", command=dataGain).grid(row=0, column=2, ipady=8, padx=30)
+                  "edition date", command=dataGain)
+type.grid(row=0, column=2, ipady=8, padx=30)
 
 # MAIN LIST
 
-columns = (
-    'ID', 'type', 'name', 'CECQ code', 'QR code', 'location', 'placement', 'edition date', 'description')
+columns = ('ID', 'type', 'name', 'CECQ code', 'QR code', 'location', 'placement', 'edition date', 'description')
 listBox = Treeview(content, columns=columns, show='headings', height=40)
 listBox.pack(fill='y', expand=True, side=LEFT)
 scroll = ttk.Scrollbar(content, orient="vertical", command=listBox.yview)
 scroll.pack(side=RIGHT, fill='y', expand=True)
 listBox.configure(yscrollcommand=scroll.set)
 listBox.bind('<Double-Button-1>', editRowWindow)
+listBox.bind("<Delete>",delete_item)
+
 
 for col in columns:
     listBox.heading(col, text=col,anchor=CENTER)
-    listBox.column(col, anchor=CENTER)
+headings=('ID', 'type', 'name', 'CECQ code', 'QR code', 'location', 'placement', 'edition date', 'description')
 
-changeColumnWidth(40, 'ID')
-changeColumnWidth(150, 'type', 'edition date', 'placement')
 
 style = ttk.Style()
 style.configure('Treeview', rowheight=30)
 style.configure("Treeview.Heading", background="#d2d2d2", foreground="black", font='Calibri 14')
+style.configure('My.TFrame',background='red')
 
+for col in columns:
+    listBox.heading(col, text=col)
+    listBox.column(col,anchor=CENTER)
+
+changeColumnWidth(40, 'ID')
+changeColumnWidth(150, 'type', 'edition date', 'placement')
+
+id_update()
 refresh()
 root.mainloop()
