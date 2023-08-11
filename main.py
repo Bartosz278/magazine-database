@@ -58,11 +58,18 @@ def editRowWindow(event):
         x.close()
         id_update()
         refresh()
+        if "normal" == editWindow.state():
+            print("ez")
+        else:
+            print("nie działa+")
 
+    global if_closed
     editWindow = Tk(className='Edit window')
+    if_closed = editWindow
     editFrame = ttk.Frame(editWindow, padding=50)
     editFrame.pack()
     editWindow.geometry("350x350")
+    editFrame.grab_set()
 
     editColumn1 = ttk.Frame(editFrame)
     editColumn1.pack(side=LEFT)
@@ -111,6 +118,9 @@ def editRowWindow(event):
 
 
     EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14',command=edit_item).pack(pady=5,ipadx=10)
+
+
+
 def refresh():
     with open('baza.txt') as reader, open('baza.txt', 'r+') as writer:
         for line in reader:
@@ -185,7 +195,9 @@ def addWindow():
         win.destroy()
         addWindow()
 
+    global if_closed
     win = Tk(className='Add new item')
+    if_closed = win
     frame = Frame(win, padding=20)
     frame.grid(row=1, column=3)
 
@@ -219,6 +231,7 @@ def addWindow():
     description.grid(row=1, column=7)
 
     addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,ipady=4)
+
 
 def delete_item(event):
     x = open("baza.txt", "w")
@@ -267,6 +280,16 @@ def backup():
 
     dest = "baza.txt " + str(datetime.date.today()) + " " + str(datetime.datetime.now().hour) + "-" + str(datetime.datetime.now().minute)
     shutil.copy("baza.txt", dest)
+
+def on_closing():
+    try:
+        if if_closed.state() == "normal":
+            pass
+    except:
+        root.destroy()
+
+
+
 
 # MAIN WINDOW SIZE ETC.
 
@@ -325,6 +348,7 @@ for col in columns:
 changeColumnWidth(40, 'ID')
 changeColumnWidth(150, 'type', 'edition date', 'placement')
 
+root.protocol("WM_DELETE_WINDOW", on_closing)
 id_update()
 backup()
 refresh()
