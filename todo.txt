@@ -1,7 +1,7 @@
 to do:
 
+ogarnąc lepszy system backupów
 !!! edit window -----> pokazac wartosci wiersza w Entry + logika(zmiana, zapis w pliku) wyjątel dla headingsow !!!
-okno do dodawnia mozna wlaczyc wiecej razy -- zmienic
 
 automatyczny backup po włączeniu aplikacji
 przycisk usuwania ----> po usunieciu reload ID

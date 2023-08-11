@@ -50,18 +50,16 @@ def editRowWindow(event):
                         add_item += str(item) + "|"
                     k += 1
                 edit_tab.append(add_item)
+                edit_tab.append(("\n"))
             else:
                 edit_tab.append(row)
             id_var += 1
         for element in edit_tab:
-            x.writelines(str(element))
+            print(element)
+            x.write(element)
         x.close()
         id_update()
         refresh()
-        if "normal" == editWindow.state():
-            print("ez")
-        else:
-            print("nie działa+")
 
     global if_closed
     editWindow = Tk(className='Edit window')
@@ -69,7 +67,6 @@ def editRowWindow(event):
     editFrame = ttk.Frame(editWindow, padding=50)
     editFrame.pack()
     editWindow.geometry("350x350")
-    editFrame.grab_set()
 
     editColumn1 = ttk.Frame(editFrame)
     editColumn1.pack(side=LEFT)
@@ -164,6 +161,9 @@ def dataGain(item):
 
 def addWindow():
     xr = open("baza.txt", "r")
+    def dis_button():
+        addButton["state"] = "normal"
+        win.destroy()
 
     def addData():
         empty_line = ""
@@ -231,6 +231,17 @@ def addWindow():
     description.grid(row=1, column=7)
 
     addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,ipady=4)
+    try:
+        if win.state() == "normal":
+            addButton["state"] = "disable"
+    except:
+        pass
+    win.protocol("WM_DELETE_WINDOW", dis_button)
+
+
+
+
+
 
 
 def delete_item(event):
@@ -305,6 +316,7 @@ x = Label(fotter, bootstyle="light").grid(row=0, column=0)
 
 addButton = tk.Button(nav, text='Add item', command=addWindow, font='Calibri 14')
 addButton.grid(row=0, column=0, ipady=4, padx=30)
+
 
 searchbar = Entry(nav, width=50, font='Calibri 14')
 searchbar.bind("<KeyRelease>", dataGain)

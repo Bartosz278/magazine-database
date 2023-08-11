@@ -1,8 +1,9 @@
 1|mechanical|support 19" 16U 7021 X2||27230175|PUL80-N022|A/2|2023-08-08|quantity: 56
 2|mechanical|support 19" 12U 7021 X2||27230174|PUL80-N022|A/2|2023-08-08|quantity: 4
 3|mechanical|traverse de prof 1000 x2||27230171|PUL80-N022|A/2|2023-08-08|quantity: 10
-4|mechanical|glissiere 500 X1||27230102|PUL80-N022|A/2|2023-08-08|quantity: 25
-5|mechanical|19" frontplate 4he ral70|kosz na smieci|30118951|PUL80-N022|A/3/6U|2023-08-11|quantity: 27
-6|mechanical|19" frontplate 3he 3mm ra||30118950|PUL80-N022|A/3/7U|2023-08-08|quantity: 20
-7|mechanical|19" frontplate 2he 3mm ra||30118949|PUL80-N022|A/3/6U|2023-08-08|quantity: 40
-8|mechanical|19" frontplate 2he 3mm ra||30118949|PUL80-N022|A/3/3U|2023-08-11|sztuki
+4|mechanical|glissiere 500 X2||27230102|PUL80-N022|A/2|2023-08-08|quantity: 10
+5|mechanical|glissiere 500 X1||27230102|PUL80-N022|A/2|2023-08-08|quantity: 25
+6|mechanical|19" frontplate 4he ral70||30118951|PUL80-N022|A/3/6U|2023-08-08|quantity: 27
+7|mechanical|19" frontplate 3he 3mm ra||30118950|PUL80-N022|A/3/7U|2023-08-08|quantity: 20
+8|mechanical|19" frontplate 2he 3mm ra||30118949|PUL80-N022|A/3/6U|2023-08-11|podoba siê to dla mnie
+9|mechanical|19" frontplate 2he 3mm ra||30118949|PUL80-N022|A/3/3U|2023-08-08|quantity: 50
