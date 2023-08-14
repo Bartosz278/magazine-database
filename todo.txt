@@ -1,12 +1,11 @@
 to do:
 
-!!! edit window -----> logika(zmiana, zapis w pliku) wyjątek dla headingsow !!!
+!!! edit window -----> pokazac wartosci wiersza w Entry + logika(zmiana, zapis w pliku) wyjątel dla headingsow !!!
 okno do dodawnia mozna wlaczyc wiecej razy -- zmienic
+
 brak możliwosci wyłączenia okna głownego bez wyłączenia mniejszych
-eit window ----> okno "Description" rozszerzyc zeby pokazac caly opis
-zmienic kolor "remove item" na czerwony
-przycisk usuwania ----> po usunieciu reload ID
 automatyczny backup po włączeniu aplikacji
+przycisk usuwania ----> po usunieciu reload ID
 FONT optionMenu
 
 maybe to do:
@@ -18,8 +17,15 @@ szerokość scrollbara
 columna type --> lista rozwijana (propozycje typu) --> opcja dodawania typu dla usera
 kosz
 
+button searchbar(tekst, typ){
+	while true:
+		if tablica[2] == typ
+button powrót()[
+	for x in range(0;999);
+		wiersz(x) = tablica
+		print tablica
+ tablica = tab[]
+for x in range(0;999);	
+	wiersz(x) = 
+	
 
-
- >>>>>>>>>   ZAGADKA <<<<<<<<<<<<<
-
- dlaczego piewszy wiersz entry w Edit Window sie rozszerza ?? (!)
