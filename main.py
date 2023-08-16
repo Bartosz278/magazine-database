@@ -12,30 +12,47 @@ import ttkwidgets
 import keyboard
 import shutil
 
+
 def changeColumnWidth(size, *args):
     for i in args:
         listBox.column(i, width=size)
 
+
 def editRowWindow(event):
     selected = listBox.focus()
     currentID = int((listBox.item(selected, 'values')[0]))
+
     def editItem():
+        edit_tab = str(
+            currentID) + '|' + typeLabelValue.get() + '|' + nameLabelValue.get() + '|' + cecqLabelValue.get() + '|' + qrLabelValue.get() + '|' + locationLabelValue.get() + '|' + placementLabelValue.get() + '|' + str(
+            datetime.date.today()) + '|' + descriptionLabelValue.get() + '\n'
 
-        edit_tab = str(currentID)+'|'+typeLabelValue.get()+'|'+nameLabelValue.get()+'|'+cecqLabelValue.get()+'|'+qrLabelValue.get()+'|'+locationLabelValue.get()+'|'+placementLabelValue.get()+'|'+str(datetime.date.today())+'|'+descriptionLabelValue.get()+'\n'
+        with open('baza.txt', 'r') as file:
+            data = file.readlines()
+        data[currentID - 1] = edit_tab
+        file.close()
+        with open('baza.txt', 'w') as file:
+            file.writelines(data)
+        file.close()
+        refresh()
 
-        print(edit_tab)
-        print(currentID)
+    def deleteItemButton():
+        selected = listBox.focus()
+        currentID = int((listBox.item(selected, 'values')[0]))
+        empty = ''
 
         with open('baza.txt', 'r', encoding='utf-8') as file:
             data = file.readlines()
-        data[currentID-1] = edit_tab
+        data[currentID - 1] = empty
         file.close()
         with open('baza.txt', 'w', encoding='utf-8') as file:
             file.writelines(data)
         file.close()
+        id_update()
         refresh()
-        print(edit_tab)
-        print(currentID)
+        editWindow.destroy()
+
+        # id_update()
 
     editWindow = Tk(className='Edit window')
     editWindow.geometry("550x350")
@@ -50,14 +67,13 @@ def editRowWindow(event):
     selected = listBox.focus()
     x = (listBox.item(selected, 'values'))
 
-
     typeLabel = Label(editColumn1, text='Type:', font='Calibri 14', anchor='w', width=10).pack()
     typeLabelValue = ttk.Entry(editColumn2, font='Calibri 14', width=20)
     typeLabelValue.insert(END, x[1])
     typeLabelValue.pack()
 
     nameLabel = ttk.Label(editColumn1, text='Name:', font='Calibri 14', anchor='w', width=10).pack()
-    nameLabelValue = ttk.Entry(editColumn2,font='Calibri 14', width=20)
+    nameLabelValue = ttk.Entry(editColumn2, font='Calibri 14', width=20)
     nameLabelValue.insert(END, x[2])
     nameLabelValue.pack()
 
@@ -87,13 +103,16 @@ def editRowWindow(event):
     # editionDateLabelValue.pack()
 
     descriptionLabel = ttk.Label(editColumn1, text='description:', font='Calibri 14', anchor='w', width=10).pack()
-    descriptionLabelValue = ttk.Entry(editColumn2,text=x[8], font='Calibri 14', width=20)
+    descriptionLabelValue = ttk.Entry(editColumn2, text=x[8], font='Calibri 14', width=20)
     descriptionLabelValue.insert(END, x[8])
     descriptionLabelValue.pack()
 
-    removeItemButton = tk.Button(editWindow, text="Remove", font='Calibri 14').pack(side=LEFT, padx=20, pady=5,
-                                                                                    ipadx=10)
-    EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14', command=editItem).pack(side=LEFT, pady=5, ipadx=10)
+    removeItemButton = tk.Button(editWindow, text="Remove", font='Calibri 14', command=deleteItemButton).pack(side=LEFT,
+                                                                                                              padx=20,
+                                                                                                              pady=5,
+                                                                                                              ipadx=10)
+    EditButton = tk.Button(editWindow, text='Edit', font='Calibri 14', command=editItem).pack(side=LEFT, pady=5,
+                                                                                              ipadx=10)
 
 
 def refresh():
@@ -139,6 +158,7 @@ def dataGain(item):
 
 def addWindow():
     xr = open("baza.txt", "r")
+
     def addData():
         empty_line = ""
         xa = open("baza.txt", "a")
@@ -171,8 +191,6 @@ def addWindow():
 
     new_item = []
 
-    #IT MAKES BUGS DURING ADDING
-
     last_line = ""
     for line in xr:
         pass
@@ -203,49 +221,42 @@ def addWindow():
 
     addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,
                                                                                                ipady=4)
+
+
 def delete_item(event):
-    x = open("baza.txt", "w")
-    for i in listBox.selection():
-        listBox.delete(i)
-    for line in listBox.get_children():
-        item = []
-        k = 0
-        for value in listBox.item(line)["values"]:
-            if k == 8:
-                x.writelines(str(value))
-            else:
-                x.writelines(str(value) + "|")
-            k += 1
-    x.close()
-    id_update()
-    refresh()
-def id_update():
-    max_rows = 1
-    id = 1
-    x = open("baza.txt", "r")
-    text = x.readlines()
-    x = open("baza.txt", "w")
-    #check amount of lines
-    for rows in text:
-        max_rows += 1
-    #give correct id to lines
-    for lines in text:
-        item = ""
-        if max_rows>=id:
-            lines = lines.split('|')
-            lines[0] = id
-            id +=1
-        k = 0
-        for element in lines:
-            if k == 8:
-                item += str(element)
-            else:
-                item += str(element) + "|"
-            k += 1
-        x.writelines(item)
-    x.close()
+    selected = listBox.focus()
+    currentID = int((listBox.item(selected, 'values')[0]))
+    empty = ''
+
+    with open('baza.txt', 'r') as file:
+        data = file.readlines()
+    data[currentID - 1] = empty
+    file.close()
+    with open('baza.txt', 'w') as file:
+        file.writelines(data)
+    file.close()
     refresh()
 
+    id_update()
+
+
+# def id_update():
+#     i=0
+#     with open('baza.txt', 'r') as file:
+#         data = file.readlines()
+#         temp = []
+#         i=1
+#         print(data)
+#     for line in data:
+#         temp.append(str(i)+line[1:])
+#         i+=1
+#     print(temp)
+#     file.close()
+#     with open('baza.txt', 'w') as file:
+#         file.writelines(temp)
+#     file.close()
+#
+# id_update()
 
 # MAIN WINDOW SIZE ETC.
 
@@ -280,6 +291,7 @@ scroll = ttk.Scrollbar(content, orient="vertical", command=listBox.yview)
 scroll.pack(side=RIGHT, fill='y', expand=True)
 listBox.configure(yscrollcommand=scroll.set)
 listBox.bind('<Double-Button-1>', editRowWindow)
+listBox.bind("<Delete>", delete_item)
 
 for col in columns:
     listBox.heading(col, text=col, anchor=CENTER)

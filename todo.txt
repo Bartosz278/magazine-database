@@ -1,31 +1,23 @@
 to do:
+            !!!!  ----->  1  <------ !!!!
 
-!!! edit window -----> pokazac wartosci wiersza w Entry + logika(zmiana, zapis w pliku) wyjątel dla headingsow !!!
+PRZYCISK DODAWANIA NIE DZIALA GDY BAZA JEST PUSTA
+id_update do poprawy
+
+            !! ------>  2  <------ !!
+
 okno do dodawnia mozna wlaczyc wiecej razy -- zmienic
-
 brak możliwosci wyłączenia okna głownego bez wyłączenia mniejszych
+sprawdzanie czy podany rekord juz istnieje
+
+            ----> 3 <----
+
+EDIT > po usunieciu wszystkich pol podczas edycji > usunac rekord
+po usunieciu reload ID  (przemyslec czy potrzebne)
 automatyczny backup po włączeniu aplikacji
-przycisk usuwania ----> po usunieciu reload ID
-FONT optionMenu
 
 maybe to do:
 
-mozliwosc swapowania kolumn usuwania ich i dodawania
-jakis ładny ui
-checkbox do usuwania
 szerokość scrollbara
 columna type --> lista rozwijana (propozycje typu) --> opcja dodawania typu dla usera
 kosz
-
-button searchbar(tekst, typ){
-	while true:
-		if tablica[2] == typ
-button powrót()[
-	for x in range(0;999);
-		wiersz(x) = tablica
-		print tablica
- tablica = tab[]
-for x in range(0;999);	
-	wiersz(x) = 
-	
-
