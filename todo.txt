@@ -1,13 +1,11 @@
 to do:
             !!!!  ----->  1  <------ !!!!
 
-PRZYCISK DODAWANIA NIE DZIALA GDY BAZA JEST PUSTA
-id_update do poprawy
-
+brak możliwosci wyłączenia okna głownego bez wyłączenia mniejszych
+zablokowac wlaczanie wiecej niz jednego okna edycij (tak jak dodawania)
             !! ------>  2  <------ !!
 
-okno do dodawnia mozna wlaczyc wiecej razy -- zmienic
-brak możliwosci wyłączenia okna głownego bez wyłączenia mniejszych
+
 sprawdzanie czy podany rekord juz istnieje
 
             ----> 3 <----

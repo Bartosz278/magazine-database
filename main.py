@@ -1,16 +1,17 @@
-import linecache
-import time
+# import linecache
+# import time
+# import ttkwidgets
+# import shutil
+# import ttkbootstrap
+# import keyboard
+import tkinter
 from tkinter import *
 from tkinter.ttk import *
 import tkinter as tk
 from tkinter import ttk
 import datetime
-import ttkbootstrap
-import keyboard
 from ttkbootstrap.constants import *
-import ttkwidgets
-import keyboard
-import shutil
+import os
 
 
 def changeColumnWidth(size, *args):
@@ -23,15 +24,16 @@ def editRowWindow(event):
     currentID = int((listBox.item(selected, 'values')[0]))
 
     def editItem():
+        global if_closed
         edit_tab = str(
             currentID) + '|' + typeLabelValue.get() + '|' + nameLabelValue.get() + '|' + cecqLabelValue.get() + '|' + qrLabelValue.get() + '|' + locationLabelValue.get() + '|' + placementLabelValue.get() + '|' + str(
             datetime.date.today()) + '|' + descriptionLabelValue.get() + '\n'
 
-        with open('baza.txt', 'r') as file:
+        with open('baza.txt', 'r',encoding='utf-8') as file:
             data = file.readlines()
         data[currentID - 1] = edit_tab
         file.close()
-        with open('baza.txt', 'w') as file:
+        with open('baza.txt', 'w',encoding='utf-8') as file:
             file.writelines(data)
         file.close()
         refresh()
@@ -52,13 +54,11 @@ def editRowWindow(event):
         refresh()
         editWindow.destroy()
 
-        # id_update()
-
-    editWindow = Tk(className='Edit window')
-    editWindow.geometry("550x350")
+    editWindow = tkinter.Toplevel(root)
+    editWindow.geometry("550x450")
     editFrame = ttk.Frame(editWindow, padding=50)
     editFrame.pack()
-
+    if_closed = editWindow
     editColumn1 = ttk.Frame(editFrame)
     editColumn1.pack(side=LEFT)
     editColumn2 = ttk.Frame(editFrame)
@@ -116,12 +116,12 @@ def editRowWindow(event):
 
 
 def refresh():
-    with open('baza.txt') as reader, open('baza.txt', 'r+') as writer:
+    with open('baza.txt',encoding='utf-8') as reader, open('baza.txt', 'r+',encoding='utf-8') as writer:
         for line in reader:
             if line.strip():
                 writer.write(line)
         writer.truncate()
-    x = open('baza.txt', 'r')
+    x = open('baza.txt', 'r',encoding='utf-8')
     for row in listBox.get_children():
         listBox.delete(row)
     for line in x:
@@ -132,7 +132,7 @@ def refresh():
 
 
 def dataGain(item):
-    x = open("baza.txt", "r")
+    x = open("baza.txt", "r",encoding='utf-8')
     item = searchbar.get()
     item_type = columns.index(searchtype.get())
     for row in listBox.get_children():
@@ -157,11 +157,15 @@ def dataGain(item):
 
 
 def addWindow():
-    xr = open("baza.txt", "r")
+    xr = open("baza.txt", "r",encoding='utf-8')
+
+    def dis_button():
+        addButton["state"] = "normal"
+        win.destroy()
 
     def addData():
         empty_line = ""
-        xa = open("baza.txt", "a")
+        xa = open("baza.txt", "a",encoding='utf-8')
         new_item.append(type.get())
         new_item.append(name.get())
         new_item.append(cecq.get())
@@ -185,13 +189,18 @@ def addWindow():
         win.destroy()
         addWindow()
 
-    win = Tk(className='Add new item')
+    global if_closed
+    win = tkinter.Toplevel(root)
+    win.grab_set()
+    if_closed = win
     frame = Frame(win, padding=20)
     frame.grid(row=1, column=3)
 
     new_item = []
-
-    last_line = ""
+    if os.stat("baza.txt").st_size == 0:
+        last_line = '0'
+    else:
+        last_line = ''
     for line in xr:
         pass
         last_line = line
@@ -219,44 +228,49 @@ def addWindow():
     description = ttk.Entry(frame)
     description.grid(row=1, column=7)
 
-    addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,
-                                                                                               ipady=4)
+    addRecordButton = tk.Button(frame, text="create", command=addData, font='Calibri 14').grid(row=1, column=8, padx=20,ipady=4)
 
+    try:
+        if win.state() == "normal":
+            addButton["state"] = "disable"
+    except:
+        pass
+    win.protocol("WM_DELETE_WINDOW", dis_button)
 
 def delete_item(event):
     selected = listBox.focus()
     currentID = int((listBox.item(selected, 'values')[0]))
     empty = ''
 
-    with open('baza.txt', 'r') as file:
+    with open('baza.txt', 'r',encoding='utf-8') as file:
         data = file.readlines()
     data[currentID - 1] = empty
     file.close()
-    with open('baza.txt', 'w') as file:
+    with open('baza.txt', 'w',encoding='utf-8') as file:
         file.writelines(data)
     file.close()
+    id_update()
     refresh()
 
-    id_update()
+
+def id_update():
+    i = 0
+    with open('baza.txt', 'r',encoding='utf-8') as file:
+        data = file.readlines()
+        temp = []
+        i = 1
+        znak = '|'
+    for line in data:
+        if znak in line:
+            x = line.index(znak)
+        temp.append(str(i) + line[x:])
+        i += 1
+    file.close()
+    with open('baza.txt', 'w',encoding='utf-8') as file:
+        file.writelines(temp)
+    file.close()
 
 
-# def id_update():
-#     i=0
-#     with open('baza.txt', 'r') as file:
-#         data = file.readlines()
-#         temp = []
-#         i=1
-#         print(data)
-#     for line in data:
-#         temp.append(str(i)+line[1:])
-#         i+=1
-#     print(temp)
-#     file.close()
-#     with open('baza.txt', 'w') as file:
-#         file.writelines(temp)
-#     file.close()
-#
-# id_update()
 
 # MAIN WINDOW SIZE ETC.
 
@@ -304,5 +318,13 @@ style = ttk.Style()
 style.configure('Treeview', rowheight=30)
 style.configure("Treeview.Heading", background="#d2d2d2", foreground="black", font='Calibri 14')
 
+def on_closing():
+    try:
+        if if_closed.state() == "normal":
+            pass
+    except:
+        root.destroy()
+root.protocol("WM_DELETE_WINDOW", on_closing)
+id_update()
 refresh()
 root.mainloop()
