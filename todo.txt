@@ -3,6 +3,7 @@ to do:
 
 brak możliwosci wyłączenia okna głownego bez wyłączenia mniejszych
 zablokowac wlaczanie wiecej niz jednego okna edycij (tak jak dodawania)
+po edycji nie dziala przycisk remove 
             !! ------>  2  <------ !!
 
 
