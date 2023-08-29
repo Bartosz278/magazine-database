@@ -24,7 +24,6 @@ def editRowWindow(event):
     currentID = int((listBox.item(selected, 'values')[0]))
 
     def editItem():
-        global if_closed
         edit_tab = str(
             currentID) + '|' + typeLabelValue.get() + '|' + nameLabelValue.get() + '|' + cecqLabelValue.get() + '|' + qrLabelValue.get() + '|' + locationLabelValue.get() + '|' + placementLabelValue.get() + '|' + str(
             datetime.date.today()) + '|' + descriptionLabelValue.get() + '\n'
@@ -40,7 +39,6 @@ def editRowWindow(event):
 
     def deleteItemButton():
         selected = listBox.focus()
-        currentID = int((listBox.item(selected, 'values')[0]))
         empty = ''
 
         with open('baza.txt', 'r', encoding='utf-8') as file:
@@ -54,6 +52,7 @@ def editRowWindow(event):
         refresh()
         editWindow.destroy()
 
+    global if_closed
     editWindow = tkinter.Toplevel(root)
     editWindow.geometry("550x450")
     editFrame = ttk.Frame(editWindow, padding=50)
@@ -63,6 +62,18 @@ def editRowWindow(event):
     editColumn1.pack(side=LEFT)
     editColumn2 = ttk.Frame(editFrame)
     editColumn2.pack(side=LEFT)
+    def bindOnClosing():
+        listBox.bind('<Double-Button-1>', editRowWindow)
+        editWindow.destroy()
+
+    if editWindow.state() == "normal":
+        print('open')
+        listBox.unbind('<Double-Button-1>')
+
+    editWindow.protocol("WM_DELETE_WINDOW", bindOnClosing)
+
+
+
 
     selected = listBox.focus()
     x = (listBox.item(selected, 'values'))
@@ -283,6 +294,7 @@ content.pack(fill='y', expand=True)
 fotter = ttk.Frame(root, bootstyle="light")
 fotter.pack()
 x = Label(fotter, bootstyle="light").grid(row=0, column=0)
+
 
 addButton = tk.Button(nav, text='Add item', command=addWindow, font='Calibri 14')
 addButton.grid(row=0, column=0, ipady=4, padx=30)
